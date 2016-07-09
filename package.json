@@ -1,0 +1,13 @@
+{
+  "name"         : "node-movie-titles-scrape",
+  "version"      : "0.0.1",
+  "description"  : "Scrape a specified web page for movie links and determine its title, year, quality, resolution based on the filename",
+  "main"         : "server.js",
+  "author"       : "RCD",
+  "dependencies" : {
+    "express"    : "latest",
+    "request"    : "latest",
+    "cheerio"    : "latest",
+	"parse-torrent-name": "latest"
+  }
+}
