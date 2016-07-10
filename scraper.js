@@ -3,10 +3,15 @@ var cheerio = require('cheerio');
 var ptn = require('parse-torrent-name');
 
 var searchTerm = 'screen+scraping';
-var url = 'http://foosite.com/Film/2016/';
 var result,fileUrl,prevMovieTitle;;
 var moviejson = {title:"",year:"",quality:"",resolution:"",link:""};
 
+if( process.argv.length != 3){
+		console.log("MovieLinks Scraper plus");
+		console.log("USAGE: node script.js <site-url>");
+		return;
+}
+var url = process.argv[2];
 request(url, function(err, resp, body){
   $ = cheerio.load(body);
   
