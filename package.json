@@ -8,6 +8,7 @@
     "express"    : "latest",
     "request"    : "latest",
     "cheerio"    : "latest",
-	"parse-torrent-name": "latest"
+	"parse-torrent-name": "latest",
+	"lowdb":"latest"
   }
 }
