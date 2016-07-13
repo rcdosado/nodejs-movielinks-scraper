@@ -1,10 +1,12 @@
 var request = require('request');
 var cheerio = require('cheerio');
 var ptn = require('parse-torrent-name');
+var path = require('path');
 
 var searchTerm = 'screen+scraping';
 var result,fileUrl,prevMovieTitle;;
-var moviejson = {title:"",year:"",quality:"",resolution:"",link:""};
+var moviejson = {};
+const low = require('lowdb');
 
 if( process.argv.length != 3){
 		console.log("MovieLinks Scraper plus");
@@ -13,8 +15,8 @@ if( process.argv.length != 3){
 }
 var url = process.argv[2];
 
-const low = require('lowdb')
-const db = low('movies.json')
+
+const db = low('movies.json');
 
 db.defaults({ movies:[] }).value()
 
@@ -37,9 +39,10 @@ request(url, function(err, resp, body){
 	result = ptn(  unescape( fileUrl  )  );
 	
 	//removes slashes for folders
+	moviejson.id = db.get('movies').size()+1;
 	moviejson.title = result.title.replace('/','');
 
-	//this code was made to prevent duplicates
+	//this code was made to prevent duplicates, it assumes movies are alphabetical
 	if(prevMovieTitle == moviejson.title){	
 		return true; 
 	}
@@ -54,12 +57,12 @@ request(url, function(err, resp, body){
 	moviejson.quality = result.quality;
 	moviejson.resolution = result.resolution;
 	moviejson.link  = url+fileUrl;
+
 	//console.log(JSON.stringify(moviejson)+",");
-	result = db.get('movies').push(moviejson).value()
+	db.get('movies').push(moviejson).value()
 
 	// reset to none for every movie/row in webpage
-	result = {}
-	moviejson={}
+	moviejson={};
   });
   //console.log("}");
 });
