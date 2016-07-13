@@ -12,12 +12,18 @@ if( process.argv.length != 3){
 		return;
 }
 var url = process.argv[2];
+
+const low = require('lowdb')
+const db = low('movies.json')
+
+db.defaults({ movies:[] }).value()
+
 request(url, function(err, resp, body){
   $ = cheerio.load(body);
   
   links = $('a'); //jquery get all hyperlinks
 
-  console.log("{");
+  //console.log("{");
   $(links).each(function(i, link){
 
 	//encoded URL, save this
@@ -48,7 +54,8 @@ request(url, function(err, resp, body){
 	moviejson.quality = result.quality;
 	moviejson.resolution = result.resolution;
 	moviejson.link  = url+fileUrl;
-	console.log(JSON.stringify(moviejson)+",");
+	//console.log(JSON.stringify(moviejson)+",");
+	result = db.get('movies').push(JSON.stringify(moviejson)).value()
   });
-  console.log("}");
+  //console.log("}");
 });
