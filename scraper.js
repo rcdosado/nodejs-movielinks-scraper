@@ -55,7 +55,11 @@ request(url, function(err, resp, body){
 	moviejson.resolution = result.resolution;
 	moviejson.link  = url+fileUrl;
 	//console.log(JSON.stringify(moviejson)+",");
-	result = db.get('movies').push(JSON.stringify(moviejson)).value()
+	result = db.get('movies').push(moviejson).value()
+
+	// reset to none for every movie/row in webpage
+	result = {}
+	moviejson={}
   });
   //console.log("}");
 });
