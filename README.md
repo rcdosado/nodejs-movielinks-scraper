@@ -6,6 +6,7 @@ Requirements:
 * request
 * cheerio
 * parse-torrent-name
+* lowdb
 
 Just an application created for learning node.js 
 
