@@ -11,11 +11,11 @@ Requirements:
 Just an application created for learning node.js 
 
 # How to Use ?
-For now the URL of the webpage is hardcoded, so simply replace that with the target site
-the output is a JSON file that is printed in the console so you can do
+Basically this nodejs application is a CLI, and it accepts 1 parameter, which is
+the site containing directory of movies having a familiar filename. Example is:
 
 ```
-node scraper.js > movies.json
+node scraper.js http://www.site.com/mymovies/
 ```
 
-at the console.
+the output is a json file with a comprehensive information about the movie.
